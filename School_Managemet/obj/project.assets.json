@@ -377,7 +377,7 @@
       "System.Diagnostics.EventLog/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
             "related": ".xml"
           }
         },
@@ -1683,7 +1683,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Microsoft.Data.SqlClient >= 5.2.2"
+      "Microsoft.Data.SqlClient >= 5.2.2",
+      "System.Diagnostics.EventLog >= 8.0.0"
     ]
   },
   "packageFolders": {
@@ -1734,6 +1735,10 @@
           "Microsoft.Data.SqlClient": {
             "target": "Package",
             "version": "[5.2.2, )"
+          },
+          "System.Diagnostics.EventLog": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           }
         },
         "imports": [
