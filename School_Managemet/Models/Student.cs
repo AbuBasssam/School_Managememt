@@ -2,10 +2,9 @@
 {
     public class Student
     {
-        public int StudentID { get;  set; }
-        public string StudentNumber { get; set; }
-        public DateTime EnrollmentDate { get; set; }
-        public byte GradeLevel { get; set; }
-        public int UserID { get; set; }
+        public required int StudentID { get;  set; }
+        public required DateTime EnrollmentDate { get; set; }
+        public required byte GradeLevel { get; set; }
+        public required int UserID { get; set; }
     }
 }

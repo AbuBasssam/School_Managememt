@@ -9,7 +9,7 @@ using System.Data;
 
 namespace School_Managemet_Repository
 {
-    class UserRepository : IUserRepository
+    public class UserRepository
     {
         private readonly string _ConnectionString;
 
@@ -37,9 +37,9 @@ namespace School_Managemet_Repository
                         command.Parameters.AddRange(parameters.ToArray());
                         connection.Open();
                         rowsAffected = await command.ExecuteNonQueryAsync();
-                            
-                        
-                        
+
+
+
 
                     }
 
@@ -61,14 +61,18 @@ namespace School_Managemet_Repository
             return rowsAffected == 1;
 
         }
-        public async Task<bool> ChangePassword(string OldPassword, string NewPassword)
+
+        //Tested
+        public async Task<bool> ChangePassword(ChangePassword ChangePasswordModel)
         {
 
             int rowsAffected = 0;
 
             try
             {
-               // var parameters = SqlParameterGenerater.CreateSqlParameters<Person>(person);
+                var parameters = SqlParameterGenerater.CreateSqlParameters(ChangePasswordModel);
+
+                // var parameters = SqlParameterGenerater.CreateSqlParameters<Person>(person);
                 using (var connection = new SqlConnection(_ConnectionString))
                 {
 
@@ -78,12 +82,10 @@ namespace School_Managemet_Repository
                     {
 
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@OldPassword",OldPassword);
-                        command.Parameters.AddWithValue("@NewPassword", NewPassword);
+                        command.Parameters.AddRange(parameters.ToArray());
+
                         connection.Open();
                         rowsAffected = await command.ExecuteNonQueryAsync();
-
-
 
 
                     }
@@ -106,6 +108,39 @@ namespace School_Managemet_Repository
             return rowsAffected == 1;
 
         }
+        public async Task<bool> DeactivateUser(String UserName)
+        {
+            int rowsAffected = 0;
+
+            try
+            {
+
+                using (SqlConnection connection = new SqlConnection(_ConnectionString))
+                {
+                    using (SqlCommand command = new SqlCommand("SP_Deactivate_User", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserName", UserName);
+
+
+                        connection.Open();
+                        rowsAffected = await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                //Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
+            return rowsAffected == 1;
+        }
+    
+
+
+
+
+
 
     }
     

@@ -1,0 +1,12 @@
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\bin\Debug\net8.0\School_Managemet_Repository.deps.json
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\bin\Debug\net8.0\School_Managemet_Repository.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\bin\Debug\net8.0\School_Managemet_Repository.pdb
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.csproj.AssemblyReference.cache
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.AssemblyInfoInputs.cache
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.AssemblyInfo.cs
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.csproj.CoreCompileInputs.cache
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\refint\School_Managemet_Repository.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.pdb
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\ref\School_Managemet_Repository.dll
