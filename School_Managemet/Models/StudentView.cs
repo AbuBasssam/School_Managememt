@@ -22,7 +22,7 @@ namespace School_Managemet_Repository.Models
         public required string NationalityName { get; set; }
         public required string Address { get; set; }
         public string? ImagePath { get; set; }
-        public required string UserName { get; set; }
+        public required string StudentNumber { get; set; }
         public required int StudentID { get; set; }
         public required byte GradeLevel { get; set; }
         public required string GradeLevelName { get; set; }

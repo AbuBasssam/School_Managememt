@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using School_Managemet_Repository.Interfaces;
 
-namespace School_Managemet_Repository
+namespace School_Managemet_Repository.Repositories
 {
-    public class UserRepository
+    public class UserRepository:IUserRepository
     {
         private readonly string _ConnectionString;
 
@@ -24,7 +25,7 @@ namespace School_Managemet_Repository
 
             try
             {
-                var parameters = SqlParameterGenerater.CreateSqlParameters<Person>(person);
+                var parameters = SqlParameterGenerater.CreateSqlParameters(person);
                 using (var connection = new SqlConnection(_ConnectionString))
                 {
 
@@ -108,7 +109,7 @@ namespace School_Managemet_Repository
             return rowsAffected == 1;
 
         }
-        public async Task<bool> DeactivateUser(String UserName)
+        public async Task<bool> DeactivateUser(string UserName)
         {
             int rowsAffected = 0;
 
@@ -135,7 +136,7 @@ namespace School_Managemet_Repository
             }
             return rowsAffected == 1;
         }
-    
+
 
 
 
@@ -143,6 +144,6 @@ namespace School_Managemet_Repository
 
 
     }
-    
+
 }
 

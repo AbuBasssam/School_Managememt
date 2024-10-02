@@ -1,20 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols;
+using School_Managemet_Repository.Interfaces;
 using School_Managemet_Repository.Models;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Numerics;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace School_Managemet_Repository
+namespace School_Managemet_Repository.Repositories
 {
-    public class StudentRepsitory
+    public class StudentRepsitory:IStudentRepository
     {
         private readonly string _ConnectionString;
         public StudentRepsitory(string connectionString)
@@ -63,7 +55,7 @@ namespace School_Managemet_Repository
 
             return null;
         }
-       
+
         public async Task<string?> Add(AddStudent NewStudentUser)
         {
             try
@@ -95,29 +87,53 @@ namespace School_Managemet_Repository
             }
             return null;
         }
-        
+
         public async Task<bool> Update<Person>(Person person)
         {
             UserRepository URepo = new UserRepository(_ConnectionString);
             return await URepo.Update(person);
 
-            
+
+        }
+
+        public async Task<bool> UpgradeLevel(string UserName)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                using (var connection = new SqlConnection(_ConnectionString))
+                {
+                    using (var command = new SqlCommand("SP_Upgrade_Student_Grade_Level", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserName", UserName);
+
+                        connection.Open();
+                        rowsAffected = await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //clsEventLog.SetEventLog(ex.Message);
+            }
+            return rowsAffected == 1;
         }
 
         public async Task<bool> ChangePassword(ChangePassword ChangePasswordModel)
         {
             UserRepository URepo = new UserRepository(_ConnectionString);
             return await URepo.ChangePassword(ChangePasswordModel);
-            
+
         }
-       
-        public async Task<bool> DeactivateStudent(String UserName)
+
+        public async Task<bool> Deactivate(string UserName)
         {
             UserRepository userRepository = new UserRepository(_ConnectionString);
             return await userRepository.DeactivateUser(UserName);
         }
 
-        public async Task<StudentUser?> Login(string UserName,string Password)
+        public async Task<StudentUser?> Login(string UserName, string Password)
         {
 
             try
@@ -182,7 +198,7 @@ namespace School_Managemet_Repository
 
                         connection.Open();
 
-                         await command.ExecuteNonQueryAsync();
+                        await command.ExecuteNonQueryAsync();
                         rowsAffected = (int)returnParameter.Value;
 
                     }
@@ -194,15 +210,16 @@ namespace School_Managemet_Repository
             }
             catch (Exception ex)
             {
-                
+
                 //clsEventLog.SetEventLog(ex.Message);
                 return false;
             }
 
-            return (rowsAffected == 3);
+            return rowsAffected == 3;
 
         }
-        public async Task<IEnumerable<StudentView?>>  GetStudentsPage(int Page=1)
+
+        public async Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1)
         {
 
             List<StudentView> StudentsList = new List<StudentView>();
@@ -245,7 +262,6 @@ namespace School_Managemet_Repository
             return StudentsList;
         }
 
-
         private Student _MapReaderToStudent(IDataReader reader)
         {
             Student student = new Student
@@ -257,38 +273,38 @@ namespace School_Managemet_Repository
                 UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
             };
             return student;
-                                
+
         }
 
         private StudentUser _MapReaderToStudentUser(IDataReader reader)
         {
             StudentUser User = new StudentUser
-            {           
+            {
                 Info = new Person
                 {
-                     PersonID=reader.GetInt32(reader.GetOrdinal("PersonID")),
-                     NationalNO = reader.GetString(reader.GetOrdinal("NationalNO")),
-                     FirstName  = reader.GetString(reader.GetOrdinal("FirstName")),
-                     SecondName =reader.GetString(reader.GetOrdinal("SecondName")),
-                     ThirdName= reader.GetString(reader.GetOrdinal("ThirdName")),
-                     LastName= reader.GetString(reader.GetOrdinal("LastName")),
-                     DateOfBirth= reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
-                     Gender=reader.GetBoolean(reader.GetOrdinal("Gender")),
-                     Address= reader.GetString(reader.GetOrdinal("Address")),
-                     Phone=reader.GetString(reader.GetOrdinal("Phone")),
-                     Email= reader.GetString(reader.GetOrdinal("Email")),
-                     Nationality= reader.GetByte(reader.GetOrdinal("Nationality")),
-                     ImagePath=  reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? null : reader.GetString(reader.GetOrdinal("ImagePath"))
+                    PersonID = reader.GetInt32(reader.GetOrdinal("PersonID")),
+                    NationalNO = reader.GetString(reader.GetOrdinal("NationalNO")),
+                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                    SecondName = reader.GetString(reader.GetOrdinal("SecondName")),
+                    ThirdName = reader.GetString(reader.GetOrdinal("ThirdName")),
+                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                    DateOfBirth = reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
+                    Gender = reader.GetBoolean(reader.GetOrdinal("Gender")),
+                    Address = reader.GetString(reader.GetOrdinal("Address")),
+                    Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                    Nationality = reader.GetByte(reader.GetOrdinal("Nationality")),
+                    ImagePath = reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? null : reader.GetString(reader.GetOrdinal("ImagePath"))
                 },
 
-                UserInfo= new User
+                UserInfo = new User
                 {
                     // Initialize properties of User
                     UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
-                    UserName = reader.GetString(reader.GetOrdinal("UserName")), 
+                    UserName = reader.GetString(reader.GetOrdinal("UserName")),
                     Password = reader.GetString(reader.GetOrdinal("Password")),
-                    PersonID= reader.GetInt32(reader.GetOrdinal("PersonID")),
-                    IsActive= reader.GetBoolean(reader.GetOrdinal("IsActive"))
+                    PersonID = reader.GetInt32(reader.GetOrdinal("PersonID")),
+                    IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"))
 
                 },
 
@@ -297,7 +313,7 @@ namespace School_Managemet_Repository
                     // Initialize properties of Student
                     StudentID = reader.GetInt32(reader.GetOrdinal("StudentID")),
                     EnrollmentDate = reader.GetDateTime(reader.GetOrdinal("EnrollmentDate")),
-                    GradeLevel= reader.GetByte(reader.GetOrdinal("GradeLevel")),
+                    GradeLevel = reader.GetByte(reader.GetOrdinal("GradeLevel")),
                     UserID = reader.GetInt32(reader.GetOrdinal("UserID"))
 
                 }
@@ -306,30 +322,30 @@ namespace School_Managemet_Repository
             return User;
 
         }
+
         private StudentView _MapReaderToStudenView(IDataReader reader)
         {
             StudentView Student = new StudentView
             {
-                
-                    PersonID = reader.GetInt32(reader.GetOrdinal("PersonID")),
-                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                    SecondName = reader.GetString(reader.GetOrdinal("SecondName")),
-                    ThirdName = reader.GetString(reader.GetOrdinal("ThirdName")),
-                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                    DateOfBirth = reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
-                    Gender = reader.GetBoolean(reader.GetOrdinal("Gender")),
-                    strGender = reader.GetString(reader.GetOrdinal("strGender")),
-                    Email = reader.GetString(reader.GetOrdinal("Email")),
-                    Phone = reader.GetString(reader.GetOrdinal("Phone")),
-                    Nationality = reader.GetByte(reader.GetOrdinal("Nationality")),
-                    NationalityName = reader.GetString(reader.GetOrdinal("NationalityName")),
-                    Address = reader.GetString(reader.GetOrdinal("Address")),
-                    ImagePath = reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? null : reader.GetString(reader.GetOrdinal("ImagePath")),
-                    UserName = reader.GetString(reader.GetOrdinal("StudentNumber")),                
-                    // Initialize properties of Student
-                    StudentID = reader.GetInt32(reader.GetOrdinal("StudentID")),
-                    GradeLevel = reader.GetByte(reader.GetOrdinal("GradeLevel")),
-                    GradeLevelName = reader.GetString(reader.GetOrdinal("GradeLevelName"))
+
+                PersonID = reader.GetInt32(reader.GetOrdinal("PersonID")),
+                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                SecondName = reader.GetString(reader.GetOrdinal("SecondName")),
+                ThirdName = reader.GetString(reader.GetOrdinal("ThirdName")),
+                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                DateOfBirth = reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
+                Gender = reader.GetBoolean(reader.GetOrdinal("Gender")),
+                strGender = reader.GetString(reader.GetOrdinal("strGender")),
+                Email = reader.GetString(reader.GetOrdinal("Email")),
+                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                Nationality = reader.GetByte(reader.GetOrdinal("Nationality")),
+                NationalityName = reader.GetString(reader.GetOrdinal("NationalityName")),
+                Address = reader.GetString(reader.GetOrdinal("Address")),
+                ImagePath = reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? null : reader.GetString(reader.GetOrdinal("ImagePath")),
+                StudentID = reader.GetInt32(reader.GetOrdinal("StudentID")),
+                StudentNumber = reader.GetString(reader.GetOrdinal("StudentNumber")),
+                GradeLevel = reader.GetByte(reader.GetOrdinal("GradeLevel")),
+                GradeLevelName = reader.GetString(reader.GetOrdinal("GradeLevelName"))
 
 
             };
