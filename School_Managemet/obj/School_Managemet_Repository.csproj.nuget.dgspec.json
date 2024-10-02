@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hp\\source\\repos\\School_Managemet\\School_Managemet\\School_Managemet_Repository.csproj": {}
+    "C:\\Users\\Hp\\source\\repos\\School_Managememt\\School_Managemet\\School_Managemet_Repository.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hp\\source\\repos\\School_Managemet\\School_Managemet\\School_Managemet_Repository.csproj": {
+    "C:\\Users\\Hp\\source\\repos\\School_Managememt\\School_Managemet\\School_Managemet_Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hp\\source\\repos\\School_Managemet\\School_Managemet\\School_Managemet_Repository.csproj",
+        "projectUniqueName": "C:\\Users\\Hp\\source\\repos\\School_Managememt\\School_Managemet\\School_Managemet_Repository.csproj",
         "projectName": "School_Managemet_Repository",
-        "projectPath": "C:\\Users\\Hp\\source\\repos\\School_Managemet\\School_Managemet\\School_Managemet_Repository.csproj",
+        "projectPath": "C:\\Users\\Hp\\source\\repos\\School_Managememt\\School_Managemet\\School_Managemet_Repository.csproj",
         "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hp\\source\\repos\\School_Managemet\\School_Managemet\\obj\\",
+        "outputPath": "C:\\Users\\Hp\\source\\repos\\School_Managememt\\School_Managemet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
