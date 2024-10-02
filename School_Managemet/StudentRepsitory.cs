@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace School_Managemet_Repository
 {
-    public class StudentRepsitory:IUserRepository
+    public class StudentRepsitory
     {
         private readonly string _ConnectionString;
         public StudentRepsitory(string connectionString)
@@ -53,7 +53,7 @@ namespace School_Managemet_Repository
             }
             catch (Exception ex)
             {
-                clsEventLog logger = new clsEventLog("StudentLogger");
+                clsEventLog logger = new clsEventLog();
                 logger.LogEvent(ex.ToString(), LogLevel.Error);
             }
 
