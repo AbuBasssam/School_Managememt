@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace School_Managemet_Repository
 {
-    public interface IUserRepository:IGetData<Student>
+    public interface IUserRepository:IUpdateData<Person>
     {
-
+        Task<bool> ChangePassword(string OldPassword,string NewPassword);
     }
 }
