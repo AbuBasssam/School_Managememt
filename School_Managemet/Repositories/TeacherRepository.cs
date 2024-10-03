@@ -1,12 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using School_Managemet_Repository.Global;
+using School_Managemet_Repository.Interfaces;
 using School_Managemet_Repository.Models;
 using System.Data;
 
 namespace School_Managemet_Repository.Repositories
 {
-    public class TeacherRepository
+    public class TeacherRepository:ITeacherRepository
     {
         private readonly string _ConnectionString;
         public TeacherRepository(string connectionString)
