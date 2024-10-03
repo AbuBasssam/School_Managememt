@@ -7,108 +7,9 @@ using System.Data;
 
 namespace School_Managemet_Repository.Repositories
 {
-    public class TeacherRepository:ITeacherRepository
+    public class TeacherRepository: UserRepository, ITeacherRepository
     {
-        private readonly string _ConnectionString;
-        public TeacherRepository(string connectionString)
-        {
-            _ConnectionString = connectionString;
-        }
-
-        public async Task<Teacher?> Get(int TeacherID)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_ConnectionString))
-                {
-
-                    using (SqlCommand command = new SqlCommand("SP_Get_Teacher_By_ID", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@TeacherID", TeacherID);
-
-                        connection.Open();
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<Teacher>(reader);
-
-                            }
-
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-            }
-
-            return null;
-        }
-
-        public async Task<string?> Add(AddTeacher NewTeacherUser)
-        {
-            try
-            {
-                var parameters = SqlParameterGenerater.CreateSqlParameters(NewTeacherUser);
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-                    using (var command = new SqlCommand("SP_Add_New_Teacher", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
-
-                        command.Parameters.Add(returnParameter);
-
-                        command.Parameters.AddRange(parameters.ToArray());
-
-                        connection.Open();
-                        await command.ExecuteNonQueryAsync();
-                        return returnParameter.Value.ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                //clsEventLog.SetEventLog(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<bool> Update<Person>(Person person)
-        {
-            UserRepository URepo = new UserRepository(_ConnectionString);
-            return await URepo.Update(person);
-
-
-        }
-
-        public async Task<bool> ChangePassword(ChangePassword ChangePasswordModel)
-        {
-            UserRepository URepo = new UserRepository(_ConnectionString);
-            return await URepo.ChangePassword(ChangePasswordModel);
-
-        }
-
-        public async Task<bool> Deactivate(string UserName)
-        {
-            UserRepository userRepository = new UserRepository(_ConnectionString);
-            return await userRepository.DeactivateUser(UserName);
-        }
+        public TeacherRepository(string connectionString):base(connectionString) { }
 
         public async Task<TeacherUser?> Login(string UserName, string Password)
         {
@@ -154,7 +55,85 @@ namespace School_Managemet_Repository.Repositories
             return null;
         }
 
-        public async Task<bool> Delete(int TeacherID)
+        
+        /*        public async Task<Teacher?> Get(int TeacherID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_ConnectionString))
+                {
+
+                    using (SqlCommand command = new SqlCommand("SP_Get_Teacher_By_ID", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@TeacherID", TeacherID);
+
+                        connection.Open();
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                DataMapper mapper = new DataMapper();
+                                return mapper.MapReaderTo<Teacher>(reader);
+
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
+            }
+
+            return null;
+        }
+*/
+
+        /*        public async Task<string?> Add(AddTeacher NewTeacherUser)
+        {
+            try
+            {
+                var parameters = SqlParameterGenerater.CreateSqlParameters(NewTeacherUser);
+                using (var connection = new SqlConnection(_ConnectionString))
+                {
+                    using (var command = new SqlCommand("SP_Add_New_Teacher", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
+                        {
+                            Direction = ParameterDirection.ReturnValue
+                        };
+
+                        command.Parameters.Add(returnParameter);
+
+                        command.Parameters.AddRange(parameters.ToArray());
+
+                        connection.Open();
+                        await command.ExecuteNonQueryAsync();
+                        return returnParameter.Value.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
+            }
+            return null;
+        }
+*/
+
+        /*public async Task<bool> Delete(int TeacherID)
         {
             int rowsAffected = 0;
 
@@ -188,61 +167,61 @@ namespace School_Managemet_Repository.Repositories
             catch (Exception ex)
             {
 
-                //clsEventLog.SetEventLog(ex.Message);
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
                 return false;
             }
 
             return rowsAffected == 3;
 
-        }
+        }*/
 
-        public async Task<IEnumerable<TeacherView?>> GetTeachersPage(int Page = 1)
-        {
-
-            List<TeacherView> TeachersList = new List<TeacherView>();
-
-            try
-            {
-                using (var connection = new SqlConnection(_ConnectionString))
+        /*        public async Task<IEnumerable<TeacherView?>> GetTeachersPage(int Page = 1)
                 {
 
+                    List<TeacherView> TeachersList = new List<TeacherView>();
 
-                    using (var command = new SqlCommand("SP_Teachers_List_With_Paging", connection))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@PageNumber", Page);
-                        connection.Open();
-
-                        using (var reader = await command.ExecuteReaderAsync())
+                        using (var connection = new SqlConnection(_ConnectionString))
                         {
-                            DataMapper mapper = new DataMapper();
-                            while (await reader.ReadAsync())
-                            {
-                                TeachersList.Add(mapper.MapReaderTo<TeacherView>(reader));
 
+
+                            using (var command = new SqlCommand("SP_Teachers_List_With_Paging", connection))
+                            {
+                                command.CommandType = CommandType.StoredProcedure;
+                                command.Parameters.AddWithValue("@PageNumber", Page);
+                                connection.Open();
+
+                                using (var reader = await command.ExecuteReaderAsync())
+                                {
+                                    DataMapper mapper = new DataMapper();
+                                    while (await reader.ReadAsync())
+                                    {
+                                        TeachersList.Add(mapper.MapReaderTo<TeacherView>(reader));
+
+                                    }
+
+                                }
                             }
 
+
                         }
+
+
+
                     }
 
+                    catch (Exception ex)
+                    {
+                        clsEventLog logger = new clsEventLog();
+                        logger.LogEvent(ex.ToString(), LogLevel.Error);
+                    }
 
+                    return TeachersList;
                 }
+        */
 
-
-
-            }
-
-            catch (Exception ex)
-            {
-                //clsEventLog.SetEventLog(ex.Message);
-            }
-
-            return TeachersList;
-        }
-        
-        
-        
-        
         /*
         private Teacher _MapReaderToTeacher(IDataReader reader)
         {

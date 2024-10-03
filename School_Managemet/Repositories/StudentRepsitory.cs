@@ -7,133 +7,9 @@ using System.Data;
 
 namespace School_Managemet_Repository.Repositories
 {
-    public class StudentRepsitory:IStudentRepository
+    public class StudentRepsitory:UserRepository, IStudentRepository
     {
-        private readonly string _ConnectionString;
-        public StudentRepsitory(string connectionString)
-        {
-            _ConnectionString = connectionString;
-        }
-
-        public async Task<Student?> Get(int StudentID)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_ConnectionString))
-                {
-
-                    using (SqlCommand command = new SqlCommand("SP_Get_Student_By_ID", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@StudentID", StudentID);
-
-                        connection.Open();
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<Student>(reader);
-                                 
-
-                            }
-
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-            }
-
-            return null;
-        }
-
-        public async Task<string?> Add(AddStudent NewStudentUser)
-        {
-            try
-            {
-                var parameters = SqlParameterGenerater.CreateSqlParameters(NewStudentUser);
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-                    using (var command = new SqlCommand("SP_Add_New_Student", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
-
-                        command.Parameters.Add(returnParameter);
-
-                        command.Parameters.AddRange(parameters.ToArray());
-
-                        connection.Open();
-                        await command.ExecuteNonQueryAsync();
-                        return returnParameter.Value.ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                //clsEventLog.SetEventLog(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<bool> Update<Person>(Person person)
-        {
-            UserRepository URepo = new UserRepository(_ConnectionString);
-            return await URepo.Update(person);
-
-
-        }
-
-        public async Task<bool> UpgradeLevel(string UserName)
-        {
-            int rowsAffected = 0;
-            try
-            {
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-                    using (var command = new SqlCommand("SP_Upgrade_Student_Grade_Level", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserName", UserName);
-
-                        connection.Open();
-                        rowsAffected = await command.ExecuteNonQueryAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                //clsEventLog.SetEventLog(ex.Message);
-            }
-            return rowsAffected == 1;
-        }
-
-        public async Task<bool> ChangePassword(ChangePassword ChangePasswordModel)
-        {
-            UserRepository URepo = new UserRepository(_ConnectionString);
-            return await URepo.ChangePassword(ChangePasswordModel);
-
-        }
-
-        public async Task<bool> Deactivate(string UserName)
-        {
-            UserRepository userRepository = new UserRepository(_ConnectionString);
-            return await userRepository.DeactivateUser(UserName);
-        }
+        public StudentRepsitory(string connectionString):base(connectionString){}
 
         public async Task<StudentUser?> Login(string UserName, string Password)
         {
@@ -180,7 +56,110 @@ namespace School_Managemet_Repository.Repositories
             return null;
         }
 
-        public async Task<bool> Delete(int StudentID)
+        /*public async Task<Student?> Get(int StudentID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_ConnectionString))
+                {
+
+                    using (SqlCommand command = new SqlCommand("SP_Get_Student_By_ID", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@StudentID", StudentID);
+
+                        connection.Open();
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                DataMapper mapper = new DataMapper();
+                                return mapper.MapReaderTo<Student>(reader);
+                                 
+
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
+            }
+
+            return null;
+        }*/
+
+        /*        public async Task<bool> UpgradeLevel(string UserName)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                using (var connection = new SqlConnection(_ConnectionString))
+                {
+                    using (var command = new SqlCommand("SP_Upgrade_Student_Grade_Level", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@UserName", UserName);
+
+                        connection.Open();
+                        rowsAffected = await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
+            }
+            return rowsAffected == 1;
+        }
+*/
+        /*        public async Task<string?> Add(AddStudent NewStudentUser)
+        {
+            try
+            {
+                var parameters = SqlParameterGenerater.CreateSqlParameters(NewStudentUser);
+                using (var connection = new SqlConnection(_ConnectionString))
+                {
+                    using (var command = new SqlCommand("SP_Add_New_Student", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
+                        {
+                            Direction = ParameterDirection.ReturnValue
+                        };
+
+                        command.Parameters.Add(returnParameter);
+
+                        command.Parameters.AddRange(parameters.ToArray());
+
+                        connection.Open();
+                        await command.ExecuteNonQueryAsync();
+                        return returnParameter.Value.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
+            }
+            return null;
+        }
+*/
+
+        /*public async Task<bool> Delete(int StudentID)
         {
             int rowsAffected = 0;
 
@@ -214,15 +193,16 @@ namespace School_Managemet_Repository.Repositories
             catch (Exception ex)
             {
 
-                //clsEventLog.SetEventLog(ex.Message);
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
                 return false;
             }
 
             return rowsAffected == 3;
 
-        }
+        }*/
 
-        public async Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1)
+        /* public async Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1)
         {
 
             List<StudentView> StudentsList = new List<StudentView>();
@@ -260,13 +240,14 @@ namespace School_Managemet_Repository.Repositories
 
             catch (Exception ex)
             {
-                //clsEventLog.SetEventLog(ex.Message);
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
             }
 
             return StudentsList;
-        }
+        }*/
 
-        private Student _MapReaderToStudent(IDataReader reader)
+        /*        private Student _MapReaderToStudent(IDataReader reader)
         {
             Student student = new Student
             {
@@ -279,8 +260,9 @@ namespace School_Managemet_Repository.Repositories
             return student;
 
         }
+*/
 
-        private StudentUser _MapReaderToStudentUser(IDataReader reader)
+        /*private StudentUser _MapReaderToStudentUser(IDataReader reader)
         {
             StudentUser User = new StudentUser
             {
@@ -326,8 +308,9 @@ namespace School_Managemet_Repository.Repositories
             return User;
 
         }
+*/
 
-        private StudentView _MapReaderToStudenView(IDataReader reader)
+        /*        private StudentView _MapReaderToStudenView(IDataReader reader)
         {
             StudentView Student = new StudentView
             {
@@ -357,7 +340,7 @@ namespace School_Managemet_Repository.Repositories
             return Student;
 
         }
-
+*/
 
     }
 }

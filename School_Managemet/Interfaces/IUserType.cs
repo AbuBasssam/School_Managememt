@@ -3,7 +3,6 @@
     public interface IUserType<T> :IUserRepository
     {
         Task<T?> Login(string UserName, string Password);
-        Task<bool> Deactivate(string UserName);
 
     }
 }

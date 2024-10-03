@@ -3,63 +3,17 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using School_Managemet_Repository.Interfaces;
 using School_Managemet_Repository.Global;
+using Microsoft.Extensions.Logging;
+
+
 
 namespace School_Managemet_Repository.Repositories
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository: PersonRepository,IUserRepository
     {
-        private readonly string _ConnectionString;
 
-        public UserRepository(string connectionString)
-        {
-            _ConnectionString = connectionString;
-        }
+        public UserRepository(string connectionString) : base(connectionString){}
 
-        public async Task<bool> Update<Person>(Person person)
-        {
-            int rowsAffected = 0;
-
-            try
-            {
-                var parameters = SqlParameterGenerater.CreateSqlParameters(person);
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-
-
-
-                    using (var command = new SqlCommand("SP_Update_Person", connection))
-                    {
-
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddRange(parameters.ToArray());
-                        connection.Open();
-                        rowsAffected = await command.ExecuteNonQueryAsync();
-
-
-
-
-                    }
-
-
-
-                }
-            }
-
-
-
-            catch (Exception ex)
-            {
-                //clsEventLog.SetEventLog(ex.Message);
-                return false;
-            }
-
-
-
-            return rowsAffected == 1;
-
-        }
-
-        //Tested
         public async Task<bool> ChangePassword(ChangePassword ChangePasswordModel)
         {
 
@@ -96,7 +50,8 @@ namespace School_Managemet_Repository.Repositories
 
             catch (Exception ex)
             {
-                //clsEventLog.SetEventLog(ex.Message);
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
                 return false;
             }
 
@@ -105,7 +60,8 @@ namespace School_Managemet_Repository.Repositories
             return rowsAffected == 1;
 
         }
-        public async Task<bool> DeactivateUser(string UserName)
+        
+        /*public async Task<bool> DeactivateUser(string UserName)
         {
             int rowsAffected = 0;
 
@@ -138,13 +94,7 @@ namespace School_Managemet_Repository.Repositories
                 return false;
             }
             return rowsAffected == 1;
-        }
-
-
-
-
-
-
+        }*/
 
     }
 

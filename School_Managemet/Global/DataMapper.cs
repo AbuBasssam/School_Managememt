@@ -1,27 +1,27 @@
 ﻿using System.Data;
 using System.Reflection;
 
-namespace School_Managemet_Repository
+namespace School_Managemet_Repository.Global
 {
     public class DataMapper
     {
-        
-            public T MapReaderTo<T>(IDataReader reader) where T : new()
+
+        public T MapReaderTo<T>(IDataReader reader) where T : new()
+        {
+            var obj = new T();
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var property in properties)
             {
-                var obj = new T();
-                var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-                foreach (var property in properties)
+                if (!reader.IsDBNull(reader.GetOrdinal(property.Name)))
                 {
-                    if (!reader.IsDBNull(reader.GetOrdinal(property.Name)))
-                    {
-                        var value = reader[property.Name];
-                        property.SetValue(obj, Convert.ChangeType(value, property.PropertyType));
-                    }
+                    var value = reader[property.Name];
+                    property.SetValue(obj, Convert.ChangeType(value, property.PropertyType));
                 }
-
-                return obj;
             }
+
+            return obj;
+        }
 
 
 
@@ -68,5 +68,5 @@ namespace School_Managemet_Repository
         }*/
     }
 
-    
+
 }
