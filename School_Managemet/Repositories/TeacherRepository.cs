@@ -1,31 +1,30 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using School_Managemet_Repository.Global;
-using School_Managemet_Repository.Interfaces;
 using School_Managemet_Repository.Models;
 using System.Data;
 
 namespace School_Managemet_Repository.Repositories
 {
-    public class StudentRepsitory:IStudentRepository
+    public class TeacherRepository
     {
         private readonly string _ConnectionString;
-        public StudentRepsitory(string connectionString)
+        public TeacherRepository(string connectionString)
         {
             _ConnectionString = connectionString;
         }
 
-        public async Task<Student?> Get(int StudentID)
+        public async Task<Teacher?> Get(int TeacherID)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(_ConnectionString))
                 {
 
-                    using (SqlCommand command = new SqlCommand("SP_Get_Student_By_ID", connection))
+                    using (SqlCommand command = new SqlCommand("SP_Get_Teacher_By_ID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@StudentID", StudentID);
+                        command.Parameters.AddWithValue("@TeacherID", TeacherID);
 
                         connection.Open();
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
@@ -33,8 +32,7 @@ namespace School_Managemet_Repository.Repositories
                             if (await reader.ReadAsync())
                             {
                                 DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<Student>(reader);
-                                 
+                                return mapper.MapReaderTo<Teacher>(reader);
 
                             }
 
@@ -58,14 +56,14 @@ namespace School_Managemet_Repository.Repositories
             return null;
         }
 
-        public async Task<string?> Add(AddStudent NewStudentUser)
+        public async Task<string?> Add(AddTeacher NewTeacherUser)
         {
             try
             {
-                var parameters = SqlParameterGenerater.CreateSqlParameters(NewStudentUser);
+                var parameters = SqlParameterGenerater.CreateSqlParameters(NewTeacherUser);
                 using (var connection = new SqlConnection(_ConnectionString))
                 {
-                    using (var command = new SqlCommand("SP_Add_New_Student", connection))
+                    using (var command = new SqlCommand("SP_Add_New_Teacher", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
@@ -98,30 +96,6 @@ namespace School_Managemet_Repository.Repositories
 
         }
 
-        public async Task<bool> UpgradeLevel(string UserName)
-        {
-            int rowsAffected = 0;
-            try
-            {
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-                    using (var command = new SqlCommand("SP_Upgrade_Student_Grade_Level", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserName", UserName);
-
-                        connection.Open();
-                        rowsAffected = await command.ExecuteNonQueryAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                //clsEventLog.SetEventLog(ex.Message);
-            }
-            return rowsAffected == 1;
-        }
-
         public async Task<bool> ChangePassword(ChangePassword ChangePasswordModel)
         {
             UserRepository URepo = new UserRepository(_ConnectionString);
@@ -135,7 +109,7 @@ namespace School_Managemet_Repository.Repositories
             return await userRepository.DeactivateUser(UserName);
         }
 
-        public async Task<StudentUser?> Login(string UserName, string Password)
+        public async Task<TeacherUser?> Login(string UserName, string Password)
         {
 
             try
@@ -143,7 +117,7 @@ namespace School_Managemet_Repository.Repositories
                 using (SqlConnection connection = new SqlConnection(_ConnectionString))
                 {
 
-                    using (SqlCommand command = new SqlCommand("SP_Get_Student_User", connection))
+                    using (SqlCommand command = new SqlCommand("SP_Get_Teacher_User", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@UserName", UserName);
@@ -156,8 +130,7 @@ namespace School_Managemet_Repository.Repositories
                             if (await reader.ReadAsync())
                             {
                                 DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<StudentUser>(reader);
-                                //return _MapReaderToStudentUser(reader);
+                                return mapper.MapReaderTo<TeacherUser>(reader);
 
                             }
 
@@ -180,7 +153,7 @@ namespace School_Managemet_Repository.Repositories
             return null;
         }
 
-        public async Task<bool> Delete(int StudentID)
+        public async Task<bool> Delete(int TeacherID)
         {
             int rowsAffected = 0;
 
@@ -189,10 +162,10 @@ namespace School_Managemet_Repository.Repositories
                 using (var connection = new SqlConnection(_ConnectionString))
                 {
 
-                    using (var command = new SqlCommand("SP_Delete_Student", connection))
+                    using (var command = new SqlCommand("SP_Delete_Teacher", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@StudentID", StudentID);
+                        command.Parameters.AddWithValue("@TeacherID", TeacherID);
                         SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
                         {
                             Direction = ParameterDirection.ReturnValue
@@ -222,10 +195,10 @@ namespace School_Managemet_Repository.Repositories
 
         }
 
-        public async Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1)
+        public async Task<IEnumerable<TeacherView?>> GetTeachersPage(int Page = 1)
         {
 
-            List<StudentView> StudentsList = new List<StudentView>();
+            List<TeacherView> TeachersList = new List<TeacherView>();
 
             try
             {
@@ -233,7 +206,7 @@ namespace School_Managemet_Repository.Repositories
                 {
 
 
-                    using (var command = new SqlCommand("SP_Students_List_With_Paging", connection))
+                    using (var command = new SqlCommand("SP_Teachers_List_With_Paging", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@PageNumber", Page);
@@ -241,10 +214,10 @@ namespace School_Managemet_Repository.Repositories
 
                         using (var reader = await command.ExecuteReaderAsync())
                         {
-                            DataMapper mapper = new DataMapper();  
+                            DataMapper mapper = new DataMapper();
                             while (await reader.ReadAsync())
                             {
-                                StudentsList.Add(mapper.MapReaderTo<StudentView>(reader));
+                                TeachersList.Add(mapper.MapReaderTo<TeacherView>(reader));
 
                             }
 
@@ -263,26 +236,30 @@ namespace School_Managemet_Repository.Repositories
                 //clsEventLog.SetEventLog(ex.Message);
             }
 
-            return StudentsList;
+            return TeachersList;
         }
-
-        private Student _MapReaderToStudent(IDataReader reader)
+        
+        
+        
+        
+        /*
+        private Teacher _MapReaderToTeacher(IDataReader reader)
         {
-            Student student = new Student
+            Teacher Teacher = new Teacher
             {
 
-                StudentID = reader.GetInt32(reader.GetOrdinal("StudentID")),
+                TeacherID = reader.GetInt32(reader.GetOrdinal("TeacherID")),
                 EnrollmentDate = reader.GetDateTime(reader.GetOrdinal("EnrollmentDate")),
                 GradeLevel = reader.GetByte(reader.GetOrdinal("GradeLevel")),
                 UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
             };
-            return student;
+            return Teacher;
 
         }
 
-        private StudentUser _MapReaderToStudentUser(IDataReader reader)
+        private TeacherUser _MapReaderToTeacherUser(IDataReader reader)
         {
-            StudentUser User = new StudentUser
+            TeacherUser User = new TeacherUser
             {
                 Info = new Person
                 {
@@ -312,10 +289,10 @@ namespace School_Managemet_Repository.Repositories
 
                 },
 
-                StudentInfo = new Student
+                TeacherInfo = new Teacher
                 {
-                    // Initialize properties of Student
-                    StudentID = reader.GetInt32(reader.GetOrdinal("StudentID")),
+                    // Initialize properties of Teacher
+                    TeacherID = reader.GetInt32(reader.GetOrdinal("TeacherID")),
                     EnrollmentDate = reader.GetDateTime(reader.GetOrdinal("EnrollmentDate")),
                     GradeLevel = reader.GetByte(reader.GetOrdinal("GradeLevel")),
                     UserID = reader.GetInt32(reader.GetOrdinal("UserID"))
@@ -327,9 +304,9 @@ namespace School_Managemet_Repository.Repositories
 
         }
 
-        private StudentView _MapReaderToStudenView(IDataReader reader)
+        private TeacherView _MapReaderToStudenView(IDataReader reader)
         {
-            StudentView Student = new StudentView
+            TeacherView Teacher = new TeacherView
             {
 
                 PersonID = reader.GetInt32(reader.GetOrdinal("PersonID")),
@@ -346,18 +323,16 @@ namespace School_Managemet_Repository.Repositories
                 NationalityName = reader.GetString(reader.GetOrdinal("NationalityName")),
                 Address = reader.GetString(reader.GetOrdinal("Address")),
                 ImagePath = reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? null : reader.GetString(reader.GetOrdinal("ImagePath")),
-                StudentID = reader.GetInt32(reader.GetOrdinal("StudentID")),
-                StudentNumber = reader.GetString(reader.GetOrdinal("StudentNumber")),
+                TeacherID = reader.GetInt32(reader.GetOrdinal("TeacherID")),
+                TeacherNumber = reader.GetString(reader.GetOrdinal("TeacherNumber")),
                 GradeLevel = reader.GetByte(reader.GetOrdinal("GradeLevel")),
                 GradeLevelName = reader.GetString(reader.GetOrdinal("GradeLevelName"))
 
 
             };
 
-            return Student;
+            return Teacher;
 
-        }
-
-
+        }*/
     }
 }

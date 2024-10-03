@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace School_Managemet_Repository.Models
+﻿namespace School_Managemet_Repository.Models
 {
     public class StudentView
     {
-        public required int PersonID { get; set; }
-        public required string FirstName { get; set; }
-        public required string SecondName { get; set; }
-        public required string ThirdName { get; set; }
-        public required string LastName { get; set; }
-        public required DateTime DateOfBirth { get; set; }
-        public required bool Gender { get; set; }
-        public required string strGender { get; set; }
-        public required string Email { get; set; }
-        public required string Phone { get; set; }
-        public required byte Nationality { get; set; }
-        public required string NationalityName { get; set; }
-        public required string Address { get; set; }
+        public  int PersonID { get; set; }
+        public  string FirstName { get; set; }
+        public  string SecondName { get; set; }
+        public  string ThirdName { get; set; }
+        public  string LastName { get; set; }
+        public  DateTime DateOfBirth { get; set; }
+        public  bool Gender { get; set; }
+        public  string strGender { get; set; }
+        public  string Email { get; set; }
+        public  string Phone { get; set; }
+        public  byte Nationality { get; set; }
+        public  string NationalityName { get; set; }
+        public  string Address { get; set; }
         public string? ImagePath { get; set; }
-        public required string StudentNumber { get; set; }
-        public required int StudentID { get; set; }
-        public required byte GradeLevel { get; set; }
-        public required string GradeLevelName { get; set; }
+        public string StudentNumber { get; set; }
+        public int StudentID { get; set; }
+        public byte GradeLevel { get; set; }
+        public string GradeLevelName { get; set; }
 
 
 

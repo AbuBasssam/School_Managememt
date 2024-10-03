@@ -5,6 +5,4 @@
         public required Person Info { get; set; }
         public required User UserInfo { get; set; }
     }
-
-
 }

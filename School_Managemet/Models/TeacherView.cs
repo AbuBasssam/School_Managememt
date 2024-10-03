@@ -1,6 +1,6 @@
 ﻿namespace School_Managemet_Repository.Models
 {
-    public class TeacherUser
+    public class TeacherView
     {
         public int PersonID { get; set; }
         public string NationalNO { get; set; }
@@ -15,14 +15,14 @@
         public string Phone { get; set; }
         public string Address { get; set; }
         public string? ImagePath { get; set; }
-        public  int UserID { get; set; }
-        public  string UserName { get; set; }
-        public  string Password { get; set; }
-        public bool IsActive { get; set; }
+
+        public string strGender { get; set; }
+        public string NationalityName { get; set; }
+        public string UserName { get; set; }
         public int TeacherID { get; set; }
         public string SubjectExpertise { get; set; }
         public string bio { get; set; }
+        public int UserID { get; set; }
+
     }
-
-
 }

@@ -1,12 +1,8 @@
 ﻿using School_Managemet_Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using School_Managemet_Repository.Interfaces;
+using School_Managemet_Repository.Global;
 
 namespace School_Managemet_Repository.Repositories
 {
@@ -122,10 +118,17 @@ namespace School_Managemet_Repository.Repositories
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@UserName", UserName);
+                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.ReturnValue
+                        };
+
+                        command.Parameters.Add(returnParameter);
 
 
                         connection.Open();
-                        rowsAffected = await command.ExecuteNonQueryAsync();
+                          await command.ExecuteNonQueryAsync();
+                        rowsAffected=(int)returnParameter.Value;
                     }
                 }
             }

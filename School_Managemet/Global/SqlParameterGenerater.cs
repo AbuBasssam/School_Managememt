@@ -1,12 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace School_Managemet_Repository
+namespace School_Managemet_Repository.Global
 {
     public static class SqlParameterGenerater
     {
