@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\School_Management_Controller.props" />
+</Project>

@@ -1,6 +1,6 @@
 ﻿namespace School_Managemet_Repository.Models
 {
-    public class TeacherUser
+    public class TeacherUserModel
     {
         public int PersonID { get; set; }
         public string NationalNO { get; set; }

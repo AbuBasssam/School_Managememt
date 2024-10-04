@@ -2,7 +2,7 @@
 {
     public class ParentUser
     {
-        public required Person Info { get; set; }
+        public required PersonModel Info { get; set; }
         public required User UserInfo { get; set; }
     }
 }

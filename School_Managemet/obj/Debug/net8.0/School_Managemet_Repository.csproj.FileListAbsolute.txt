@@ -10,3 +10,4 @@ C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\Sch
 C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\refint\School_Managemet_Repository.dll
 C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.pdb
 C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\ref\School_Managemet_Repository.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.sourcelink.json

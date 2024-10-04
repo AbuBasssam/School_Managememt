@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using School_Managemet_Repository.Global;
 using School_Managemet_Repository.Interfaces;
+using School_Managemet_Repository.Models;
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace School_Managemet_Repository.Repositories
         {
             _ConnectionString = connectionString;
         }
-        public async Task<bool> Update<Person>(Person person)
+        public async Task<bool> Update(PersonModel person)
         {
             int rowsAffected = 0;
 

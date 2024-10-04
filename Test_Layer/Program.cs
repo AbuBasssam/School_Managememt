@@ -30,9 +30,9 @@ namespace School_Management
             teacher.SubjectExpertise = "Science";
             teacher.bio = "ScenceTeacher";*/
 
-            var result = TeacherRepo.GetTeachersPage(1).Result;
-            if(result!=null) 
-                Console.WriteLine($"user deactivated successfully");
+            //var result = TeacherRepo.GetTeachersPage(1).Result;
+            //if(result!=null) 
+            //    Console.WriteLine($"user deactivated successfully");
             Console.ReadKey();
         }
 

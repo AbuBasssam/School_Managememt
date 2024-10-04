@@ -1,6 +1,6 @@
 ﻿namespace School_Managemet_Repository.Models
 {
-    public class Teacher
+    public class TeacherModel
     {
         public  int TeacherID { get; set; }
         public string SubjectExpertise { get; set; }

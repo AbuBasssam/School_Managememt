@@ -61,3 +61,4 @@ C:\Users\Hp\source\repos\School_Managememt\Test_Layer\bin\Debug\net8.0\School_Ma
 C:\Users\Hp\source\repos\School_Managememt\Test_Layer\bin\Debug\net8.0\School_Managemet_Repository.pdb
 C:\Users\Hp\source\repos\School_Managememt\Test_Layer\obj\Debug\net8.0\Test_Layer.csproj.AssemblyReference.cache
 C:\Users\Hp\source\repos\School_Managememt\Test_Layer\obj\Debug\net8.0\Test_Layer.csproj.Up2Date
+C:\Users\Hp\source\repos\School_Managememt\Test_Layer\obj\Debug\net8.0\Test_Layer.sourcelink.json

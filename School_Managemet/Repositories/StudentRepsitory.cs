@@ -11,7 +11,7 @@ namespace School_Managemet_Repository.Repositories
     {
         public StudentRepsitory(string connectionString):base(connectionString){}
 
-        public async Task<StudentUser?> Login(string UserName, string Password)
+        public async Task<StudentUserModel?> Login(string UserName, string Password)
         {
 
             try
@@ -32,7 +32,7 @@ namespace School_Managemet_Repository.Repositories
                             if (await reader.ReadAsync())
                             {
                                 DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<StudentUser>(reader);
+                                return mapper.MapReaderTo<StudentUserModel>(reader);
                                 //return _MapReaderToStudentUser(reader);
 
                             }
@@ -55,197 +55,6 @@ namespace School_Managemet_Repository.Repositories
 
             return null;
         }
-
-        /*public async Task<Student?> Get(int StudentID)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(_ConnectionString))
-                {
-
-                    using (SqlCommand command = new SqlCommand("SP_Get_Student_By_ID", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@StudentID", StudentID);
-
-                        connection.Open();
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<Student>(reader);
-                                 
-
-                            }
-
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-            }
-
-            return null;
-        }*/
-
-        /*        public async Task<bool> UpgradeLevel(string UserName)
-        {
-            int rowsAffected = 0;
-            try
-            {
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-                    using (var command = new SqlCommand("SP_Upgrade_Student_Grade_Level", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserName", UserName);
-
-                        connection.Open();
-                        rowsAffected = await command.ExecuteNonQueryAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-            }
-            return rowsAffected == 1;
-        }
-*/
-        /*        public async Task<string?> Add(AddStudent NewStudentUser)
-        {
-            try
-            {
-                var parameters = SqlParameterGenerater.CreateSqlParameters(NewStudentUser);
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-                    using (var command = new SqlCommand("SP_Add_New_Student", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
-
-                        command.Parameters.Add(returnParameter);
-
-                        command.Parameters.AddRange(parameters.ToArray());
-
-                        connection.Open();
-                        await command.ExecuteNonQueryAsync();
-                        return returnParameter.Value.ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-            }
-            return null;
-        }
-*/
-
-        /*public async Task<bool> Delete(int StudentID)
-        {
-            int rowsAffected = 0;
-
-            try
-            {
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-
-                    using (var command = new SqlCommand("SP_Delete_Student", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@StudentID", StudentID);
-                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
-                        command.Parameters.Add(returnParameter);
-
-                        connection.Open();
-
-                        await command.ExecuteNonQueryAsync();
-                        rowsAffected = (int)returnParameter.Value;
-
-                    }
-
-
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-                return false;
-            }
-
-            return rowsAffected == 3;
-
-        }*/
-
-        /* public async Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1)
-        {
-
-            List<StudentView> StudentsList = new List<StudentView>();
-
-            try
-            {
-                using (var connection = new SqlConnection(_ConnectionString))
-                {
-
-
-                    using (var command = new SqlCommand("SP_Students_List_With_Paging", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@PageNumber", Page);
-                        connection.Open();
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            DataMapper mapper = new DataMapper();  
-                            while (await reader.ReadAsync())
-                            {
-                                StudentsList.Add(mapper.MapReaderTo<StudentView>(reader));
-
-                            }
-
-                        }
-                    }
-
-
-                }
-
-
-
-            }
-
-            catch (Exception ex)
-            {
-                clsEventLog logger = new clsEventLog();
-                logger.LogEvent(ex.ToString(), LogLevel.Error);
-            }
-
-            return StudentsList;
-        }*/
 
         /*        private Student _MapReaderToStudent(IDataReader reader)
         {

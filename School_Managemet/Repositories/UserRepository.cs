@@ -27,8 +27,6 @@ namespace School_Managemet_Repository.Repositories
                 using (var connection = new SqlConnection(_ConnectionString))
                 {
 
-
-
                     using (var command = new SqlCommand("SP_Change_Password", connection))
                     {
 
@@ -38,16 +36,10 @@ namespace School_Managemet_Repository.Repositories
                         connection.Open();
                         rowsAffected = await command.ExecuteNonQueryAsync();
 
-
                     }
-
-
 
                 }
             }
-
-
-
             catch (Exception ex)
             {
                 clsEventLog logger = new clsEventLog();
@@ -61,40 +53,7 @@ namespace School_Managemet_Repository.Repositories
 
         }
         
-        /*public async Task<bool> DeactivateUser(string UserName)
-        {
-            int rowsAffected = 0;
-
-            try
-            {
-
-                using (SqlConnection connection = new SqlConnection(_ConnectionString))
-                {
-                    using (SqlCommand command = new SqlCommand("SP_Deactivate_User", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserName", UserName);
-                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.Int)
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
-
-                        command.Parameters.Add(returnParameter);
-
-
-                        connection.Open();
-                          await command.ExecuteNonQueryAsync();
-                        rowsAffected=(int)returnParameter.Value;
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                //Console.WriteLine($"Error: {ex.Message}");
-                return false;
-            }
-            return rowsAffected == 1;
-        }*/
+        
 
     }
 

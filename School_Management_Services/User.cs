@@ -6,10 +6,10 @@ namespace School_Management_Services
 {
     public abstract class User:Person
     {
-        public int? UserID { get; set; } = null;    
-        public string UserName { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public bool IsActive { get; set; } = false;
+        public int UserID { get; set; }     
+        public string UserName { get; set; } 
+        public string Password { get; set; } 
+        public bool IsActive { get; set; } 
    
         /// <summary>
         ///  method for changing a user's password.

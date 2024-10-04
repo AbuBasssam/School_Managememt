@@ -11,7 +11,7 @@ namespace School_Managemet_Repository.Repositories
     {
         public TeacherRepository(string connectionString):base(connectionString) { }
 
-        public async Task<TeacherUser?> Login(string UserName, string Password)
+        public async Task<TeacherUserModel?> Login(string UserName, string Password)
         {
 
             try
@@ -32,7 +32,7 @@ namespace School_Managemet_Repository.Repositories
                             if (await reader.ReadAsync())
                             {
                                 DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<TeacherUser>(reader);
+                                return mapper.MapReaderTo<TeacherUserModel>(reader);
 
                             }
 
@@ -55,7 +55,7 @@ namespace School_Managemet_Repository.Repositories
             return null;
         }
 
-        
+
         /*        public async Task<Teacher?> Get(int TeacherID)
         {
             try
@@ -109,18 +109,17 @@ namespace School_Managemet_Repository.Repositories
                     using (var command = new SqlCommand("SP_Add_New_Teacher", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.NVarChar)
-                        {
-                            Direction = ParameterDirection.ReturnValue
-                        };
-
-                        command.Parameters.Add(returnParameter);
+                        SqlParameter registerNumberParam = new SqlParameter("@RegisterNumber", SqlDbType.NVarChar, 10)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(registerNumberParam);
 
                         command.Parameters.AddRange(parameters.ToArray());
 
                         connection.Open();
                         await command.ExecuteNonQueryAsync();
-                        return returnParameter.Value.ToString();
+                        return registerNumberParam.Value.ToString();
                     }
                 }
             }

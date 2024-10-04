@@ -2,7 +2,7 @@
 
 namespace School_Managemet_Repository.Interfaces
 {
-    public interface IStudentRepository:IUserType<StudentUser>//,IDeleteData,IGetData<Student>
+    public interface IStudentRepository:IUserType<StudentUserModel>//,IDeleteData,IGetData<Student>
     {
         //Task<string?> Add(AddStudent NewStudentUser);
         //Task<bool> UpgradeLevel(string UserName);

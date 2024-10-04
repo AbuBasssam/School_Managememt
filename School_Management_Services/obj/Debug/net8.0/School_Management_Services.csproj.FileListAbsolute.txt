@@ -1,0 +1,16 @@
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\bin\Debug\net8.0\School_Management_Services.deps.json
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\bin\Debug\net8.0\School_Management_Services.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\bin\Debug\net8.0\School_Management_Services.pdb
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\bin\Debug\net8.0\School_Managemet_Repository.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\bin\Debug\net8.0\School_Managemet_Repository.pdb
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.csproj.AssemblyReference.cache
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.AssemblyInfoInputs.cache
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.AssemblyInfo.cs
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.csproj.CoreCompileInputs.cache
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.sourcelink.json
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_M.B2B5BF13.Up2Date
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\refint\School_Management_Services.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\School_Management_Services.pdb
+C:\Users\Hp\source\repos\School_Managememt\School_Management_Services\obj\Debug\net8.0\ref\School_Management_Services.dll

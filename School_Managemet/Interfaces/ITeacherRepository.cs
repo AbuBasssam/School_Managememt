@@ -2,7 +2,7 @@
 
 namespace School_Managemet_Repository.Interfaces
 {
-    public interface ITeacherRepository : IUserType<TeacherUser>//, IDeleteData, IGetData<Teacher>
+    public interface ITeacherRepository : IUserType<TeacherUserModel>//, IDeleteData, IGetData<Teacher>
     {
         //Task<string?> Add(AddTeacher NewTeacherUser);
 
