@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace School_Management_Services
+﻿namespace School_Management_Services
 {
-    public class PersonDTO
+    public class UpdatePersonDTO
     {
         public int PersonID { get; set; }
         public string NationalNo { get; set; }
@@ -20,12 +14,11 @@ namespace School_Management_Services
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string? ImagePath { get; set; }
 
-        public PersonDTO(int personID, string nationalNo,
+        public UpdatePersonDTO(int personID, string nationalNo,
             string firstName, string secondName, string thirdName, string lastName,
-            bool gender, byte nationalityID, DateTime dateOfBirth,
-            string email, string phone, string address, string? imagePath)
+            bool gender, byte nationality, DateTime dateOfBirth,
+            string email, string phone, string address)
         {
             PersonID = personID;
             NationalNo = nationalNo;
@@ -34,12 +27,11 @@ namespace School_Management_Services
             ThirdName = thirdName;
             LastName = lastName;
             Gender = gender;
-            Nationality = nationalityID;
+            Nationality = nationality;
             DateOfBirth = dateOfBirth;
             Email = email;
             Phone = phone;
             Address = address;
-            ImagePath = imagePath;
         }
 
 

@@ -19,7 +19,12 @@ builder.Services.AddScoped<ITeacherRepository, TeacherRepository>(provider =>
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     return new TeacherRepository(connectionString!);
 });
-
+/*builder.Services.AddScoped<IPersonRepository, PersonRepository>(provider =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    return new PersonRepository(connectionString!);
+});
+*/
 builder.Services.AddScoped<ITeacher, Teacher>();
 
 

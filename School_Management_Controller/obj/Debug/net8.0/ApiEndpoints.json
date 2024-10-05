@@ -50,6 +50,56 @@
     "EndpointName": "StudentLogin"
   },
   {
+    "ContainingType": "School_Management_Controller.Controllers.StudentController",
+    "Method": "UpdateStudentInfo",
+    "RelativePath": "api/School_Management/Student/UpdateStudent/{PersonID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PersonID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "UpdatedStudent",
+        "Type": "School_Management_Services.UpdatePersonDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "School_Management_Services.UpdatePersonDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "EndpointName": "UpdateStudent"
+  },
+  {
     "ContainingType": "School_Management_Controller.Controllers.TeacherController",
     "Method": "Login",
     "RelativePath": "api/School_Management/Teacher/Login/{UserName},{Password}",
@@ -98,5 +148,55 @@
       }
     ],
     "EndpointName": "TeacherLogin"
+  },
+  {
+    "ContainingType": "School_Management_Controller.Controllers.TeacherController",
+    "Method": "UpdateTeacherInfo",
+    "RelativePath": "api/School_Management/Teacher/UpdateTeacher/{PersonID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PersonID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "UpdatedTeacher",
+        "Type": "School_Management_Services.UpdatePersonDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "School_Management_Services.UpdatePersonDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "EndpointName": "UpdateTeacher"
   }
 ]

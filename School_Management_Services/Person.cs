@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using School_Managemet_Repository;
-using School_Managemet_Repository.Interfaces;
-using School_Managemet_Repository.Models;
- 
+﻿using School_Managemet_Repository.Models;
+using School_Managemet_Repository.Repositories;
+
 
 namespace School_Management_Services
 {
-    public abstract class Person
+    public abstract class Person:IPerson
     {
         public int PersonID { get; set; }
         public string NationalNo { get; set; }
@@ -32,28 +26,32 @@ namespace School_Management_Services
         /// <param name="Info">The DTO containing User Info.</param>
         /// <returns>True if password change is successful, otherwise false.</returns>
 
-        public async Task<bool> Update(IPersonRepository personRepository, Person Info)
+        public async Task<bool> Update(UpdatePersonDTO Info)
         {
+            string ConnectionString = "Server=.;Database=SchoolDB;User Id=sa;Password=sa123456;Encrypt=False;TrustServerCertificate=True;Connection Timeout=30;";
+            PersonRepository personRepository = new PersonRepository(ConnectionString);
             bool IsUpdated = await personRepository.Update(MapToModel(Info));
 
             return IsUpdated;
 
         }
-        private  PersonModel MapToModel(Person Info)
+        
+        private  PersonModel MapToModel(UpdatePersonDTO Info)
         {
             PersonModel person=new PersonModel();
             person.PersonID = Info.PersonID;
+            person.NationalNO = Info.NationalNo;
             person.FirstName = Info.FirstName;
             person.SecondName = Info.SecondName;
             person.ThirdName = Info.ThirdName;
             person.LastName = Info.LastName;
             person.Gender = Info.Gender;
-            person.Nationality = Info.NationalityID;
+            person.Nationality = Info.Nationality;
             person.DateOfBirth = Info.DateOfBirth;
             person.Email = Info.Email;
             person.Phone = Info.Phone;
             person.Address = Info.Address;
-            person.ImagePath = Info.ImagePath;
+            person.ImagePath = this.ImagePath;
             return person;
 
 

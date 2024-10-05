@@ -35,8 +35,16 @@ namespace School_Managemet_Repository.Repositories
 
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddRange(parameters.ToArray());
-                        connection.Open();
-                        rowsAffected = await command.ExecuteNonQueryAsync();
+
+
+                        var returnParameter = new SqlParameter("@rowsAffected", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        command.Parameters.Add(returnParameter);
+                         connection.Open();
+                         await command.ExecuteNonQueryAsync();
+                        rowsAffected =(int)returnParameter.Value;
 
 
 
