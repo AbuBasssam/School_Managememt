@@ -1,27 +1,25 @@
-﻿namespace School_Management_Services
+﻿namespace School_Managemet_Repository.Models
 {
-    public class UpdatePersonDTO
+    public class PersonDTO
     {
-        public int PersonID { get; set; }
-        public string NationalNo { get; set; }
+        public string NationalNO { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string ThirdName { get; set; }
         public string LastName { get; set; }
-        public bool Gender { get; set; }
-        public byte Nationality { get; set; }
+        public string Gender { get; set; }
+        public string Nationality { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public string? ImagePath { get; set; }
 
-        public UpdatePersonDTO(int personID, string nationalNo,
-            string firstName, string secondName, string thirdName, string lastName,
-            bool gender, byte nationality, DateTime dateOfBirth,
-            string email, string phone, string address)
+        public PersonDTO(string nationalNO,string firstName, string secondName,
+            string thirdName, string lastName,string gender, string nationality,
+            DateTime dateOfBirth,string email, string phone, string address, string? imagePath)
         {
-            PersonID = personID;
-            NationalNo = nationalNo;
+            NationalNO = nationalNO;
             FirstName = firstName;
             SecondName = secondName;
             ThirdName = thirdName;
@@ -32,6 +30,7 @@
             Email = email;
             Phone = phone;
             Address = address;
+            ImagePath = imagePath;
         }
 
 

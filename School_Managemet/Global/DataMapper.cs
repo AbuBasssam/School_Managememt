@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using School_Managemet_Repository.Models;
+using System.Data;
 using System.Reflection;
 
 namespace School_Managemet_Repository.Global
@@ -25,7 +26,7 @@ namespace School_Managemet_Repository.Global
 
 
 
-        /*public T MapReaderToObjectWithCompstion<T>(IDataReader reader) where T : new()
+        public T MapReaderToObjectWithCompstion<T>(IDataReader reader) where T : new()
         {
             var obj = new T();
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -65,7 +66,36 @@ namespace School_Managemet_Repository.Global
             }
 
             return obj;
-        }*/
+        }
+        //public StudentUserModel MapReaderToStudentUserModel(IDataReader reader)
+        //{
+        //    if (reader == null)
+        //        throw new ArgumentNullException(nameof(reader));
+
+        //    if (!reader.Read())
+        //        return null; // No data to map
+
+        //    var studentUser = new StudentUserModel();
+        //    {
+               
+        //        {
+        //            FirstName = reader["FirstName"] as string,
+        //            LastName = reader["LastName"] as string
+        //        },
+        //        UserInfo = new UserModel
+        //        {
+        //            Username = reader["Username"] as string,
+        //            Email = reader["Email"] as string
+        //        },
+        //        StudentInfo = new StudentModel
+        //        {
+        //            StudentId = reader["StudentId"] != DBNull.Value ? Convert.ToInt32(reader["StudentId"]) : 0,
+        //            Grade = reader["Grade"] as string
+        //        }
+        //    };
+
+        //    return studentUser;
+        //}
     }
 
 

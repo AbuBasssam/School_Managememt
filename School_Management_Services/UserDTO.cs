@@ -6,7 +6,7 @@
         public int UserID { get; set; }
         public string UserName { get; set; }
         
-        public UserDTO(int userID, string userName, PersonDTO info)
+        public UserDTO(PersonDTO info,int userID, string userName )
         {
             Info = info;
             UserID = userID;

@@ -1,0 +1,12 @@
+C:\Users\Hp\source\repos\School_Managememt\Domain\bin\Debug\net8.0\School_Management_Domain.deps.json
+C:\Users\Hp\source\repos\School_Managememt\Domain\bin\Debug\net8.0\School_Management_Domain.dll
+C:\Users\Hp\source\repos\School_Managememt\Domain\bin\Debug\net8.0\School_Management_Domain.pdb
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.AssemblyInfoInputs.cache
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.AssemblyInfo.cs
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.csproj.CoreCompileInputs.cache
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.sourcelink.json
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.dll
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\refint\School_Management_Domain.dll
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\School_Management_Domain.pdb
+C:\Users\Hp\source\repos\School_Managememt\Domain\obj\Debug\net8.0\ref\School_Management_Domain.dll

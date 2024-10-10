@@ -6,7 +6,7 @@ namespace School_Management_Services
 {
     public abstract class Person:IPerson
     {
-        public int PersonID { get; set; }
+        protected int PersonID { get; set; }
         public string NationalNo { get; set; }
         public string FirstName { get; set; } 
         public string SecondName { get; set; }
@@ -18,7 +18,7 @@ namespace School_Management_Services
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string? ImagePath { get; set; } 
+        protected string? ImagePath { get; set; } 
 
         /// <summary>
         /// method for update a user's Info.
@@ -36,9 +36,9 @@ namespace School_Management_Services
 
         }
         
-        private  PersonModel MapToModel(UpdatePersonDTO Info)
+        private School_Managemet_Repository.Models.PersonDTO MapToModel(UpdatePersonDTO Info)
         {
-            PersonModel person=new PersonModel();
+            School_Managemet_Repository.Models.PersonDTO person=new School_Managemet_Repository.Models.PersonDTO();
             person.PersonID = Info.PersonID;
             person.NationalNO = Info.NationalNo;
             person.FirstName = Info.FirstName;

@@ -7,11 +7,11 @@ using System.Data;
 
 namespace School_Managemet_Repository.Repositories
 {
-    public class TeacherRepository: UserRepository, ITeacherRepository
+    public class TeacherRepository
     {
-        public TeacherRepository(string connectionString):base(connectionString) { }
-
-        public async Task<TeacherUserModel?> Login(string UserName, string Password)
+        /*        public TeacherRepository(string connectionString):base(connectionString) { }
+*/
+        /*        public async Task<TeacherUserModel?> Login(string UserName, string Password)
         {
 
             try
@@ -54,9 +54,9 @@ namespace School_Managemet_Repository.Repositories
 
             return null;
         }
+*/
 
-
-        /*        public async Task<Teacher?> Get(int TeacherID)
+        /*        public async Task<TeacherModel?> Get(int TeacherID)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace School_Managemet_Repository.Repositories
                             if (await reader.ReadAsync())
                             {
                                 DataMapper mapper = new DataMapper();
-                                return mapper.MapReaderTo<Teacher>(reader);
+                                return mapper.MapReaderTo<TeacherModel>(reader);
 
                             }
 
@@ -110,10 +110,10 @@ namespace School_Managemet_Repository.Repositories
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         SqlParameter registerNumberParam = new SqlParameter("@RegisterNumber", SqlDbType.NVarChar, 10)
-                {
-                    Direction = ParameterDirection.Output
-                };
-                command.Parameters.Add(registerNumberParam);
+                        {
+                            Direction = ParameterDirection.ReturnValue
+                        };
+                        command.Parameters.Add(registerNumberParam);
 
                         command.Parameters.AddRange(parameters.ToArray());
 
@@ -132,7 +132,7 @@ namespace School_Managemet_Repository.Repositories
         }
 */
 
-        /*public async Task<bool> Delete(int TeacherID)
+        /*        public async Task<bool> Delete(int TeacherID)
         {
             int rowsAffected = 0;
 
@@ -173,53 +173,53 @@ namespace School_Managemet_Repository.Repositories
 
             return rowsAffected == 3;
 
-        }*/
-
+        }
+*/
         /*        public async Task<IEnumerable<TeacherView?>> GetTeachersPage(int Page = 1)
+        {
+
+            List<TeacherView> TeachersList = new List<TeacherView>();
+
+            try
+            {
+                using (var connection = new SqlConnection(_ConnectionString))
                 {
 
-                    List<TeacherView> TeachersList = new List<TeacherView>();
 
-                    try
+                    using (var command = new SqlCommand("SP_Teachers_List_With_Paging", connection))
                     {
-                        using (var connection = new SqlConnection(_ConnectionString))
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@PageNumber", Page);
+                        connection.Open();
+
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-
-
-                            using (var command = new SqlCommand("SP_Teachers_List_With_Paging", connection))
+                            DataMapper mapper = new DataMapper();
+                            while (await reader.ReadAsync())
                             {
-                                command.CommandType = CommandType.StoredProcedure;
-                                command.Parameters.AddWithValue("@PageNumber", Page);
-                                connection.Open();
+                                TeachersList.Add(mapper.MapReaderTo<TeacherView>(reader));
 
-                                using (var reader = await command.ExecuteReaderAsync())
-                                {
-                                    DataMapper mapper = new DataMapper();
-                                    while (await reader.ReadAsync())
-                                    {
-                                        TeachersList.Add(mapper.MapReaderTo<TeacherView>(reader));
-
-                                    }
-
-                                }
                             }
 
-
                         }
-
-
-
                     }
 
-                    catch (Exception ex)
-                    {
-                        clsEventLog logger = new clsEventLog();
-                        logger.LogEvent(ex.ToString(), LogLevel.Error);
-                    }
 
-                    return TeachersList;
                 }
-        */
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                clsEventLog logger = new clsEventLog();
+                logger.LogEvent(ex.ToString(), LogLevel.Error);
+            }
+
+            return TeachersList;
+        }
+*/
 
         /*
         private Teacher _MapReaderToTeacher(IDataReader reader)

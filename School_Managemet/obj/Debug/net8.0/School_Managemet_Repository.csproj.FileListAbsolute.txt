@@ -11,3 +11,6 @@ C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\ref
 C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.pdb
 C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\ref\School_Managemet_Repository.dll
 C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_Managemet_Repository.sourcelink.json
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\bin\Debug\net8.0\School_Management_Domain.dll
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\bin\Debug\net8.0\School_Management_Domain.pdb
+C:\Users\Hp\source\repos\School_Managememt\School_Managemet\obj\Debug\net8.0\School_M.673A22D6.Up2Date

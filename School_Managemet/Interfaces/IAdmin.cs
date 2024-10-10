@@ -9,11 +9,11 @@ namespace School_Managemet_Repository.Interfaces
 {
     public interface IAdmin
     {
-        Task<bool> DeactivateUser(int UserID);
-        Task<bool> Delete(int UserID);
-        Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1);
-        Task<IEnumerable<TeacherView?>> GetTeachersPage(int Page = 1);
-        Task<bool> UpgradeLevel(int StudentID);
+        Task<bool> DeactivateAsync(int UserID);
+        //Task<bool> Delete(int UserID);
+        //Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1);
+        //Task<IEnumerable<TeacherView?>> GetTeachersPage(int Page = 1);
+        //Task<bool> UpgradeLevel(int StudentID);
 
 
     }

@@ -697,12 +697,23 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
+      "School_Management_Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/School_Management_Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/School_Management_Domain.dll": {}
+        }
+      },
       "School_Managemet_Repository/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Microsoft.Data.SqlClient": "5.2.2",
-          "Microsoft.Extensions.Logging": "8.0.0"
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "School_Management_Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/School_Managemet_Repository.dll": {}
@@ -2051,6 +2062,11 @@
         "version.txt"
       ]
     },
+    "School_Management_Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/School_Management_Domain.csproj",
+      "msbuildProject": "../Domain/School_Management_Domain.csproj"
+    },
     "School_Managemet_Repository/1.0.0": {
       "type": "project",
       "path": "../School_Managemet/School_Managemet_Repository.csproj",
@@ -2126,7 +2142,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

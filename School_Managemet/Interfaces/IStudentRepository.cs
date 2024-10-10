@@ -1,12 +1,12 @@
-﻿using School_Managemet_Repository.Models;
+﻿using School_Management_Domain;
+using School_Managemet_Repository.Models;
 
 namespace School_Managemet_Repository.Interfaces
 {
-    public interface IStudentRepository:IUserType<StudentUserModel>//,IDeleteData,IGetData<Student>
+    public interface IStudentRepository:IUserType<StudentUser>,IGenericRepository<Student>
     {
-        //Task<string?> Add(AddStudent NewStudentUser);
-        //Task<bool> UpgradeLevel(string UserName);
-        //Task<IEnumerable<StudentView?>> GetStudentsPage(int Page = 1);
-
+        Task<bool> UpdateAsync(Person person);
+        Task<IEnumerable<StudentView>> GetStudentsViewPageAsync(int Page = 1);
+    
     }
 }

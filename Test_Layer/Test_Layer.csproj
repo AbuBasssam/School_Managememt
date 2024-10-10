@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Domain\School_Management_Domain.csproj" />
     <ProjectReference Include="..\School_Managemet\School_Managemet_Repository.csproj" />
   </ItemGroup>
 

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using School_Management_Services;
 using School_Managemet_Repository.Interfaces;
 using School_Managemet_Repository.Repositories;
+using School_Managemet_Repository.Models;
+
 using System.Linq;
 
 
